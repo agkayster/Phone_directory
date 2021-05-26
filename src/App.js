@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import './App.css';
 
 const style = {
@@ -34,116 +34,114 @@ const style = {
 	},
 };
 
-function PhoneBookForm({ addEntryToPhoneBook }) {
-	const [userFirstname, setuserfirstname] = useState('');
-	const [userLastname, setuserlastname] = useState('');
-	const [userPhone, setuserphone] = useState('');
+const PhoneBookForm = ({ addEntryToPhoneBook }) => {
+	const [userFirstName, setuserFirstName] = useState('');
+	const [userLastName, setuserLastName] = useState('');
+	const [userPhone, setuserPhone] = useState('');
 	const [submitFirstName, setsubmitFirstName] = useState('');
 	const [submitLastName, setsubmitLastName] = useState('');
 	const [submitPhone, setsubmitPhone] = useState('');
 
-	const handleFirstname = (e) => {
-		setuserfirstname(e.target.value);
+	const handleFirstName = (e) => {
+		setuserFirstName(e.target.value);
 	};
-
-	const handleLastname = (e) => {
-		setuserlastname(e.target.value);
+	const handleLastName = (e) => {
+		setuserLastName(e.target.value);
 	};
-
 	const handlePhone = (e) => {
-		setuserphone(e.target.value);
+		setuserPhone(e.target.value);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setsubmitFirstName(userFirstname);
-		setsubmitLastName(userLastname);
+		setsubmitFirstName(userFirstName);
+		setsubmitLastName(userLastName);
 		setsubmitPhone(userPhone);
-		setuserfirstname('');
-		setuserlastname('');
-		setuserphone('');
+		setuserFirstName('');
+		setuserLastName('');
+		setuserPhone('');
 	};
 
 	return (
-		<div>
+		<Fragment>
 			<form onSubmit={handleSubmit} style={style.form.container}>
 				<label>First name:</label>
 				<br />
 				<input
-					style={style.form.inputs}
-					className='userFirstname'
-					name='userFirstname'
 					type='text'
-					value={userFirstname}
-					onChange={handleFirstname}
+					style={style.form.inputs}
+					name='userFirstName'
+					className='userFirstName'
+					value={userFirstName}
+					onChange={handleFirstName}
 				/>
 				<br />
 				<label>Last name:</label>
 				<br />
 				<input
-					style={style.form.inputs}
-					className='userLastname'
-					name='userLastname'
 					type='text'
-					value={userLastname}
-					onChange={handleLastname}
+					style={style.form.inputs}
+					name='userLastName'
+					className='userLastName'
+					value={userLastName}
+					onChange={handleLastName}
 				/>
 				<br />
 				<label>Phone:</label>
 				<br />
 				<input
-					style={style.form.inputs}
-					className='userPhone'
-					name='userPhone'
 					type='text'
+					style={style.form.inputs}
+					name='userPhone'
+					className='userPhone'
 					value={userPhone}
 					onChange={handlePhone}
 				/>
 				<br />
 				<input
-					style={style.form.submitBtn}
-					className='submitButton'
 					type='submit'
 					value='Add User'
+					style={style.form.submitBtn}
 				/>
 			</form>
 			<InformationTable
-				FirstName={submitFirstName}
-				LastName={submitLastName}
-				Phone={submitPhone}
+				firstName={submitFirstName}
+				lastName={submitLastName}
+				phone={submitPhone}
 			/>
-		</div>
+		</Fragment>
 	);
-}
+};
 
-function InformationTable(props) {
+const InformationTable = (props) => {
 	return (
-		<table style={style.table} className='informationTable'>
-			<thead>
-				<tr>
-					<th style={style.tableCell}>First name</th>
-					<th style={style.tableCell}>Last name</th>
-					<th style={style.tableCell}>Phone</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td> First name = {props.FirstName}</td>
-					<td> Last name = {props.LastName}</td>
-					<td> Phone = {props.Phone}</td>
-				</tr>
-			</tbody>
-		</table>
+		<Fragment>
+			<table style={style.table} className='InformationTable'>
+				<thead style={style.tableCell}>
+					<tr>
+						<th style={style.tableCell}>First name</th>
+						<th style={style.tableCell}>Last name</th>
+						<th style={style.tableCell}>Phone </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>First name = {props.firstName}</td>
+						<td>Last name = {props.lastName}</td>
+						<td>Phone = {props.phone}</td>
+					</tr>
+				</tbody>
+			</table>
+		</Fragment>
 	);
-}
+};
 
-function App(props) {
+const App = () => {
 	return (
 		<section>
 			<PhoneBookForm />
-			{/* <InformationTable /> */}
 		</section>
 	);
-}
+};
 
 export default App;
